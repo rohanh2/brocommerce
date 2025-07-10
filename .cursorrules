@@ -1,0 +1,389 @@
+# Cursor Rules for Ecommerce Project
+
+## Project Overview
+Building a comprehensive ecommerce website with admin dashboard similar to Amazon using:
+- TypeScript
+- Next.js 15
+- Shadcn UI
+- Lucide Icons
+- Zod (validation)
+- Zustand (state management)
+- Recharts (analytics)
+- Resend (email)
+- UploadThing (file uploads)
+- Prisma (ORM)
+- PostgreSQL (database)
+- NextAuth@beta (authentication)
+- Stripe (payments)
+
+## Scratchpad - Development Steps
+
+### Phase 1: Project Setup & Foundation
+1. **Initialize Next.js 15 project with TypeScript**
+   ```bash
+   npx create-next-app@latest ecommerce-platform --typescript --tailwind --eslint --app --src-dir --import-alias "@/*"
+   cd ecommerce-platform
+   ```
+
+2. **Install core dependencies**
+   ```bash
+   npm install @prisma/client prisma
+   npm install next-auth@beta
+   npm install @auth/prisma-adapter
+   npm install stripe
+   npm install @stripe/stripe-js
+   npm install zustand
+   npm install zod
+   npm install uploadthing
+   npm install @uploadthing/react
+   npm install resend
+   npm install react-email
+   npm install recharts
+   npm install lucide-react
+   ```
+
+3. **Setup Shadcn UI**
+   ```bash
+   npx shadcn-ui@latest init
+   npx shadcn-ui@latest add button card input label select textarea
+   npx shadcn-ui@latest add dropdown-menu dialog sheet
+   npx shadcn-ui@latest add table badge avatar
+   npx shadcn-ui@latest add form tabs accordion
+   npx shadcn-ui@latest add pagination toast
+   ```
+
+### Phase 2: Database Design & Setup
+4. **Setup PostgreSQL database** (using Docker or cloud provider)
+   ```bash
+   # Create docker-compose.yml for local development
+   # Or setup cloud database (Supabase, PlanetScale, etc.)
+   ```
+
+5. **Initialize Prisma**
+   ```bash
+   npx prisma init
+   ```
+
+6. **Design database schema in schema.prisma**
+   - Users table (customers & admins)
+   - Products table (with variants, inventory)
+   - Categories table (hierarchical)
+   - Orders table
+   - OrderItems table
+   - Reviews table
+   - Carts table
+   - CartItems table
+   - Addresses table
+   - PaymentMethods table
+   - Coupons table
+   - Shipping table
+   - Analytics/Tracking tables
+
+7. **Run database migrations**
+   ```bash
+   npx prisma migrate dev
+   npx prisma generate
+   ```
+
+### Phase 3: Authentication & User Management
+8. **Setup NextAuth@beta configuration**
+   - Configure providers (Google, GitHub, credentials)
+   - Setup session callbacks
+   - Configure database adapter
+   - Setup middleware for protected routes
+
+9. **Create user role system**
+   - Customer role
+   - Admin role
+   - Super admin role
+   - Permission-based access control
+
+10. **Build authentication pages**
+    - Sign in/up pages
+    - User profile page
+    - Password reset functionality
+
+### Phase 4: Core Application Architecture
+11. **Setup Zustand stores**
+    - Auth store
+    - Cart store
+    - Product store
+    - Admin store
+    - UI state store
+
+12. **Create API routes structure**
+    - `/api/products/` - CRUD operations
+    - `/api/orders/` - Order management
+    - `/api/users/` - User management
+    - `/api/admin/` - Admin operations
+    - `/api/stripe/` - Payment processing
+    - `/api/uploadthing/` - File uploads
+
+13. **Setup environment variables**
+    - Database URL
+    - NextAuth secret
+    - Stripe keys
+    - UploadThing keys
+    - Resend API key
+    - OAuth provider keys
+
+### Phase 5: Product Management System
+14. **Build product data models and validation with Zod**
+    - Product schemas
+    - Category schemas
+    - Inventory schemas
+    - Review schemas
+
+15. **Create product CRUD API endpoints**
+    - GET /api/products (with filtering, pagination, search)
+    - POST /api/products (admin only)
+    - PUT /api/products/[id] (admin only)
+    - DELETE /api/products/[id] (admin only)
+
+16. **Build product pages**
+    - Product listing page with filters
+    - Product detail page
+    - Product search functionality
+    - Category browsing
+
+17. **Setup UploadThing for product images**
+    - Configure file upload endpoints
+    - Image optimization and resizing
+    - Multiple image support per product
+
+### Phase 6: Shopping Cart & Checkout
+18. **Implement shopping cart functionality**
+    - Add to cart
+    - Update quantities
+    - Remove items
+    - Persist cart in database for authenticated users
+    - Local storage for guest users
+
+19. **Build checkout process**
+    - Cart review page
+    - Shipping address form
+    - Payment method selection
+    - Order summary
+    - Guest checkout option
+
+20. **Setup address management**
+    - Multiple shipping addresses
+    - Default address selection
+    - Address validation
+
+### Phase 7: Payment Integration
+21. **Setup Stripe integration**
+    - Configure Stripe webhooks
+    - Payment intent creation
+    - Payment confirmation handling
+    - Refund processing
+
+22. **Build payment pages**
+    - Payment form with Stripe Elements
+    - Payment success/failure pages
+    - Order confirmation emails
+
+23. **Implement coupon/discount system**
+    - Coupon validation
+    - Discount calculations
+    - Usage tracking
+
+### Phase 8: Order Management
+24. **Build order management system**
+    - Order status tracking
+    - Order history for customers
+    - Order fulfillment workflow
+    - Shipping integration
+
+25. **Create order-related email templates**
+    - Order confirmation
+    - Shipping notifications
+    - Delivery confirmations
+    - Using React Email + Resend
+
+### Phase 9: Admin Dashboard
+26. **Build admin layout and navigation**
+    - Sidebar navigation
+    - Dashboard overview
+    - Role-based access control
+
+27. **Create admin dashboard pages**
+    - Analytics overview with Recharts
+    - Sales metrics
+    - Product performance
+    - User analytics
+    - Revenue tracking
+
+28. **Build admin product management**
+    - Product listing with actions
+    - Product creation/editing forms
+    - Bulk operations
+    - Inventory management
+    - Category management
+
+29. **Create admin order management**
+    - Order listing and filtering
+    - Order status updates
+    - Shipping management
+    - Refund processing
+
+30. **Build admin user management**
+    - User listing
+    - User details and activity
+    - Role management
+    - Account actions
+
+### Phase 10: Reviews & Ratings
+31. **Implement review system**
+    - Review submission
+    - Rating calculations
+    - Review moderation (admin)
+    - Helpful votes system
+
+32. **Build review components**
+    - Review display components
+    - Review submission forms
+    - Rating stars component
+
+### Phase 11: Search & Filtering
+33. **Implement advanced search**
+    - Full-text search
+    - Filter by categories, price, ratings
+    - Sort options
+    - Search suggestions
+
+34. **Add recommendation system**
+    - Related products
+    - Recently viewed
+    - Frequently bought together
+
+### Phase 12: UI/UX Implementation
+35. **Build responsive layouts**
+    - Mobile-first design
+    - Tablet and desktop optimizations
+    - Touch-friendly interactions
+
+36. **Implement loading states and error handling**
+    - Skeleton loaders
+    - Error boundaries
+    - Retry mechanisms
+    - Toast notifications
+
+37. **Add animations and micro-interactions**
+    - Page transitions
+    - Hover effects
+    - Loading animations
+
+### Phase 13: Performance Optimization
+38. **Implement caching strategies**
+    - Next.js built-in caching
+    - Database query optimization
+    - Image optimization
+
+39. **Setup monitoring and analytics**
+    - Error tracking
+    - Performance monitoring
+    - User behavior analytics
+
+### Phase 14: Testing
+40. **Write unit tests**
+    - API routes testing
+    - Component testing
+    - Utility function testing
+
+41. **Implement integration tests**
+    - End-to-end user flows
+    - Payment processing tests
+    - Database operations
+
+### Phase 15: Security & Compliance
+42. **Implement security measures**
+    - Input validation and sanitization
+    - Rate limiting
+    - CSRF protection
+    - Content Security Policy
+
+43. **Add compliance features**
+    - GDPR compliance
+    - Cookie consent
+    - Privacy policy
+    - Terms of service
+
+### Phase 16: Deployment & DevOps
+44. **Setup deployment pipeline**
+    - Vercel deployment
+    - Environment configuration
+    - Database migration strategy
+
+45. **Configure monitoring and logging**
+    - Error tracking (Sentry)
+    - Performance monitoring
+    - Database monitoring
+
+46. **Setup backup and recovery**
+    - Database backups
+    - File storage backups
+    - Disaster recovery plan
+
+## Development Guidelines
+
+### Code Organization
+- Use TypeScript strictly
+- Follow Next.js App Router conventions
+- Organize components by feature
+- Use barrel exports for clean imports
+- Implement proper error boundaries
+
+### State Management
+- Use Zustand for global state
+- Keep server state in React Query/SWR
+- Use local state for component-specific data
+- Implement optimistic updates
+
+### Styling
+- Use Tailwind CSS with Shadcn components
+- Create custom design tokens
+- Implement dark/light mode
+- Ensure accessibility compliance
+
+### API Design
+- RESTful API conventions
+- Proper HTTP status codes
+- Consistent error response format
+- API versioning strategy
+- Rate limiting implementation
+
+### Database Best Practices
+- Use Prisma migrations
+- Implement soft deletes
+- Add proper indexes
+- Use transactions for complex operations
+- Regular backup strategy
+
+### Security Considerations
+- Validate all inputs with Zod
+- Sanitize user content
+- Implement proper authentication
+- Use HTTPS everywhere
+- Regular security audits
+
+### Performance Targets
+- Core Web Vitals optimization
+- Image optimization with Next.js
+- Code splitting and lazy loading
+- Database query optimization
+- CDN usage for static assets
+
+## Next Steps
+1. Start with Phase 1 (Project Setup)
+2. Complete each phase sequentially
+3. Test thoroughly after each major feature
+4. Deploy to staging environment regularly
+5. Gather feedback and iterate
+
+## Notes
+- This is a comprehensive ecommerce platform similar to Amazon
+- Estimated development time: 3-6 months with a team
+- Regular code reviews and testing are essential
+- Consider using a headless CMS for content management
+- Implement proper logging and monitoring from the start
